@@ -1,0 +1,97 @@
+<!doctype html>
+<html ng-app="icloud">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/index.js"></script>
+</head>
+<body ng-controller="iclouds">
+	<div class="container">
+		<div class="left">
+			<div class="left-title">
+				<div class="logo">iCloud</div>
+				<div class="biao">提醒事项^</div>
+				<div class="add" ng-click="addItem()">+</div>
+			</div>
+			<ul class="left-list">
+			<div class="shi">
+				<div></div>
+				<p>列表项</p>
+			</div>
+				<li ng-repeat="v in todo" ng-click="check($index)" ng-class="$index==index?'hot':''">
+					<span ng-style="{background:v.color}"></span>
+					<p>{{v.title}}</p>
+				</li>
+			</ul>
+		</div>
+
+		<div class="right">
+			<div class="right-top">
+				<div class="search-box">
+					<span class="search-icon"></span>
+					<input type="text" placeholder="搜索所有提示">
+				</div>
+				<div class="help"></div>
+			</div>
+			<div class="right-list">
+			  <div class="right-title">
+				 <h3 ng-style="{color:todo[index].color}">{{todo[index].title}}</h3>
+
+				 <div class="options" ng-style="{color:todo[index].color}" ng-click="optflag=!optflag">选项</div>
+				 <div class="list-box" ng-show="optflag"> 
+				 	<div class="lists">
+				 	<div class="liste-inner">
+				 		<input type="text" ng-model="changeTitle" value="{{todo[index].title}}" ng-style="{color:todo[index].color}">
+				 		<h6>列表颜色</h6>
+				 		<div class="color-box">
+				 		
+				 		<ul>
+				 			<li ng-repeat="v in colors" ng-style="{backgroundColor:v,borderColor:changeColor==v?v:'rgba(0,0,0,0)'}" ng-click="sColor(v)"></li>
+				 		</ul>
+				 		</div>
+				 		<div class="btn-group">
+				 		
+				 			<a href="javascript:;" ng-click="delList()">删除</a>
+				 			<a href="javascript:;" ng-click="optflag=false" ng-style="{color:todo[index].color}">取消</a>
+				 			<span>|</span>
+				 			<a href="javascript:;"ng-click="comChange()" ng-style="{color:todo[index].color}">完成</a>
+				 		
+				 		</div>
+				 	</div>
+				 	</div>
+				 </div>
+
+
+			  </div>
+				<div class="options-list">
+					<div class="end">
+						<div class="end-title">
+							<span class="select" ng-click="flag=!flag" ng-class="{true:'h-select',flase:''}[flag]"></span>
+							<div>已完成:{{doneNums}}项</div>
+							<b ng-style="{color:todo[index].color}" ng-click="clearCom()" ng-show="flag">清除已完成事项</b>
+						</div>
+					</div>
+					<ul class="com" ng-show="flag">
+					<!-- 已完成 -->
+						<li ng-repeat="v in todo[index].list |filter:'true'">
+							<div class="yuan" ng-click="set(v,false)"ng-style="{backgroundColor:todo[index].color,borderColor:todo[index].color}"></div>
+							<div class="xm" contenteditable ng-blur="change(v,$event)">{{v.title}}</div>
+						</li>
+					</ul>
+					<div class="fg"></div>
+					<ul class="now">
+						<li ng-repeat="v in todo[index].list |filter:'false'">
+                        <div class="yuan" ng-click="set(v,true)"ng-style="{borderColor:todo[index].color}"></div>
+						<div  class="xm" contenteditable ng-blur="change(v,$event)">{{v.title}}</div></li>
+					</ul>
+					<div class="fg"></div>
+					<div class="new" ng-click="addlist()">新项目...</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
