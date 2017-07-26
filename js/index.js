@@ -72,8 +72,8 @@ var todo=[
 var colors=["#FF8700","#CC72E1","#61D937","#1BACF8","#F7CA00","#A0815C","#FF2967"];
 var icloud=angular.module('icloud',[]);
 icloud.controller('iclouds',function($scope,localStg){
-	$scope.todo=localStg.getData('todo');
-	// $scope.todo=todo;
+//	$scope.todo=localStg.getData('todo');
+	 $scope.todo=todo;
     $scope.index=$scope.todo.length-1;
     $scope.flag=false;
 
